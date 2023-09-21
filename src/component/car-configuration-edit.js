@@ -9,6 +9,7 @@ import {
 } from "../service/car-configurator";
 import {Router} from "@vaadin/router";
 import {router} from "../app";
+import {priceFormat} from "../service/util";
 
 class CarConfigurationEdit extends HTMLElement {
 
@@ -77,8 +78,9 @@ class CarConfigurationEdit extends HTMLElement {
                     </select>
                 `)}
                 <label>Price</label>
-                <p>${this.currentPrice}</p>
+                <p>${priceFormat.format(this.currentPrice)}</p>
             </div>
+            <button @click="${_=>Router.go(`/`)}"><span class="material-symbols-outlined">back</span></button>
             <button @click="${_=>this.save()}"><span class="material-symbols-outlined">save</span></button>
         `, this)
     }

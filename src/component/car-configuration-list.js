@@ -1,6 +1,7 @@
 import {html, render} from "lit-html";
-import {listCarConfigurations} from "../service/car-configurator";
+import {deleteCarConfiguration, listCarConfigurations} from "../service/car-configurator";
 import {Router} from "@vaadin/router";
+import {priceFormat} from "../service/util";
 
 class CarConfigurationList extends HTMLElement {
 
@@ -24,18 +25,20 @@ class CarConfigurationList extends HTMLElement {
             <button @click="${_=>Router.go(`/add/`)}"><span class="material-symbols-outlined">add</span></button>
             <div class="configuration list">
                 ${this.configurations.map(configuration => html`
-                    <p>${configuration.name}</p>
+                    <p>${configuration.name} ${configuration.type} ${configuration.klass}
+                        ${configuration.configurationValues.map(v => v.value).join(', ')}
+                        <span class="price">${priceFormat.format(configuration.price)}</span>
+                    </p>
                     <button @click="${_=>Router.go(`/edit/${configuration.id}`)}"><span class="material-symbols-outlined">edit</span></button>
-                    <button @click="${_=>this.deleteConfiguration()}"><span class="material-symbols-outlined">delete</span></button>
+                    <button @click="${_=>this.deleteConfiguration(configuration.id)}"><span class="material-symbols-outlined">delete</span></button>
                 `)}
             </div>
         `, this)
     }
 
-
     deleteConfiguration(id) {
-        if(alert(`Really delete configuration?`)) {
-            console.log('delete', id)
+        if (confirm(`Really delete configuration?`)) {
+            deleteCarConfiguration(id).then(_=>this.load())
         }
     }
 }

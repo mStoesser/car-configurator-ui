@@ -7,5 +7,8 @@
     display: grid; grid-template-columns: 1fr 1fr;
 }
 .configuration.list {
-    display: grid; grid-template-columns: 5fr 1fr 1fr;
+    display: grid; grid-template-columns: 5fr 1fr 1fr;grid-row-gap: 0.5rem; grid-column-gap: 0.4rem;
 }
+.configuration.list button { margin-bottom: 0;}
+.configuration.list p { border-radius: 0.3rem; background-color: #333; margin: 0; padding: 0.7rem;}
+span.price {float: right; }

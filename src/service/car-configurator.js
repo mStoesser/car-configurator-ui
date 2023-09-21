@@ -22,6 +22,9 @@ export function updateCarConfiguration(id, configuration) {
         body: JSON.stringify(configuration),
     }).then(res => res.json())
 }
+export function deleteCarConfiguration(id) {
+    return fetch(`${carConfiguratorUrl}configuration/${id}`, { method: "DELETE" })
+}
 
 export function validateCarConfiguration(configuration) {
     return fetch(`${carConfiguratorUrl}configuration/validate`, {
